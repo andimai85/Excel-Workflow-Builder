@@ -20,13 +20,21 @@ export interface WorkflowStep {
   phase: string | null;
   phaseIndex: number;
   isMilestone: boolean;
-  storage: string | null; // "Ablage in"
+  storage: string | null;
   deliverable: string | null;
   duration: string | null;
-  raci: Record<string, RaciRole[]>; // responsible key -> roles
+  raci: Record<string, RaciRole[]>;
   checklist: ChecklistItem[];
   note: string;
+
   done: boolean;
+  doneComment?: string;
+
+  deliverableDone?: boolean;
+  deliverableComment?: string;
+
+  storageDone?: boolean;
+  storageComment?: string;
 }
 
 export interface Phase {
