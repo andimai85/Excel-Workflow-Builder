@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - andimai85-patch-1
 
 jobs:
   build:
