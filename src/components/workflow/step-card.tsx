@@ -1,7 +1,7 @@
 import type { WorkflowDoc, WorkflowStep } from "@/lib/workflow-types";
 import { RaciBadges } from "./raci-badges";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Circle, FolderArchive, Star } from "lucide-react";
+import { CheckCircle2, Circle, FolderArchive, Star, FileCheck } from "lucide-react";
 
 export function stepStatus(step: WorkflowStep): "done" | "progress" | "open" {
   if (step.done) return "done";
@@ -53,7 +53,12 @@ export function StepCard({
               #{step.index + 1}
               {step.phase ? ` · ${step.phase}` : ""}
             </div>
-            <div className="truncate text-sm font-semibold text-foreground">
+            <div
+              className={cn(
+                "truncate text-sm font-semibold text-foreground",
+                step.done && "line-through opacity-70",
+              )}
+            >
               {step.title}
             </div>
           </div>
@@ -79,6 +84,19 @@ export function StepCard({
           erledigt
         </div>
       ) : null}
+      <div className="mt-2 flex flex-wrap gap-1">
+  {step.deliverableDone && (
+    <span className="rounded bg-green-100 px-2 py-0.5 text-[10px] font-medium text-green-700">
+      ✓ Deliverable
+    </span>
+  )}
+
+  {step.storageDone && (
+    <span className="rounded bg-blue-100 px-2 py-0.5 text-[10px] font-medium text-blue-700">
+      ✓ Ablage
+    </span>
+  )}
+</div>
     </button>
   );
 }
