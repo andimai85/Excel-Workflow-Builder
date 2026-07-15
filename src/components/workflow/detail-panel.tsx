@@ -225,7 +225,109 @@ function StepDetailPanelComponent({
               </div>
             </div>
           </section>
+          <section>
+  <h4 className="mb-2 text-sm font-semibold">
+    Abschlussdokumentation
+  </h4>
 
+  <div className="space-y-4">
+
+    <div>
+      <div className="mb-2 flex items-center gap-2">
+        <PlainCheckbox
+          checked={step.done}
+          label="Schritt erledigt"
+          onCheckedChange={(v) =>
+            set((s) => ({
+              ...s,
+              done: !!v,
+            }))
+          }
+        />
+        <span>Schritt erledigt</span>
+      </div>
+
+      {step.done && (
+        <Textarea
+          rows={2}
+          placeholder="Kommentar zum Abschluss (optional)"
+          value={step.doneComment ?? ""}
+          onChange={(e) =>
+            set((s) => ({
+              ...s,
+              doneComment: e.target.value,
+            }))
+          }
+        />
+      )}
+    </div>
+
+    {step.deliverable && (
+      <div>
+        <div className="mb-2 flex items-center gap-2">
+          <PlainCheckbox
+            checked={!!step.deliverableDone}
+            label="Deliverable erledigt"
+            onCheckedChange={(v) =>
+              set((s) => ({
+                ...s,
+                deliverableDone: !!v,
+              }))
+            }
+          />
+          <span>Deliverable erledigt</span>
+        </div>
+
+        {step.deliverableDone && (
+          <Textarea
+            rows={2}
+            placeholder="Kommentar zum Deliverable"
+            value={step.deliverableComment ?? ""}
+            onChange={(e) =>
+              set((s) => ({
+                ...s,
+                deliverableComment: e.target.value,
+              }))
+            }
+          />
+        )}
+      </div>
+    )}
+
+    {step.storage && (
+      <div>
+        <div className="mb-2 flex items-center gap-2">
+          <PlainCheckbox
+            checked={!!step.storageDone}
+            label="Ablage erledigt"
+            onCheckedChange={(v) =>
+              set((s) => ({
+                ...s,
+                storageDone: !!v,
+              }))
+            }
+          />
+          <span>Ablage erledigt</span>
+        </div>
+
+        {step.storageDone && (
+          <Textarea
+            rows={2}
+            placeholder="Kommentar zur Ablage"
+            value={step.storageComment ?? ""}
+            onChange={(e) =>
+              set((s) => ({
+                ...s,
+                storageComment: e.target.value,
+              }))
+            }
+          />
+        )}
+      </div>
+    )}
+
+  </div>
+</section>
           <section>
             <h4 className="mb-2 text-sm font-semibold">RACI-Matrix</h4>
             <div className="rounded-lg border">
@@ -286,14 +388,6 @@ function StepDetailPanelComponent({
           <section>
             <div className="mb-2 flex items-center justify-between">
               <h4 className="text-sm font-semibold">Checkliste</h4>
-              <label className="flex items-center gap-2 text-xs">
-                <PlainCheckbox
-                  checked={step.done || allDone}
-                  label="Schritt erledigt"
-                  onCheckedChange={(v) => set((s) => ({ ...s, done: !!v }))}
-                />
-                Schritt erledigt
-              </label>
             </div>
             <ul className="space-y-2">
               {step.checklist.map((c) => (
