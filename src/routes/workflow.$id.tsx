@@ -62,6 +62,17 @@ function WorkflowPage() {
     updateWorkflow(doc.id, (d) => ({ ...d, view: v }));
 
   const totalDone = doc.steps.filter((s) => s.done).length;
+  const deliverablesDone =
+  doc.steps.filter((s) => s.deliverableDone).length;
+
+const deliverablesTotal =
+  doc.steps.filter((s) => !!s.deliverable).length;
+
+const storageDone =
+  doc.steps.filter((s) => s.storageDone).length;
+
+const storageTotal =
+  doc.steps.filter((s) => !!s.storage).length;
   const respFilled = doc.responsibleKeys.filter((k) => {
     const r = doc.responsibles[k];
     return r && (r.firstName?.trim() || r.lastName?.trim());
@@ -92,7 +103,10 @@ function WorkflowPage() {
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-sm font-semibold">{doc.name}</h1>
             <p className="text-xs text-muted-foreground">
-              {doc.steps.length} Schritte · {totalDone} erledigt ·{" "}
+              {doc.steps.length} Schritte ·
+{totalDone} erledigt ·
+Deliverables {deliverablesDone}/{deliverablesTotal} ·
+Ablagen {storageDone}/{storageTotal} ·{" "}
               {doc.phases.length} Phasen · {respFilled}/
               {doc.responsibleKeys.length} Verantwortliche zugeordnet
             </p>
